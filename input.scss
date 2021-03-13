@@ -1,0 +1,105 @@
+@mixin flex {
+  display: flex;
+}
+
+@mixin grid {
+  display: grid;
+}
+
+@mixin transform {
+  transform: translateY(2px);
+}
+
+%font-shared {
+  font-weight: 500;
+  font-family: monospace;
+}
+
+#container {
+  @include flex;
+
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: ghostwhite;
+
+  .calculator {
+    @include grid;
+
+    grid-template-rows: 1fr 4fr;
+    width: 500px;
+    height: 600px;
+    background-color: black;
+    border: 10px solid rgb(47, 47, 47, 1);
+
+    .screen {
+      margin: 5px;
+      height: 150px;
+      background-color: rgb(178, 185, 183);
+
+      #expression,
+      #answer {
+        height: 50%;
+        padding: 5px;
+
+        @extend %font-shared;
+      }
+
+      #expression {
+        font-size: 2em;
+      }
+
+      #answer {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 3em;
+      }
+    }
+  }
+}
+
+.buttons {
+  @include grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+
+  button {
+    margin: 1px;
+    border-radius: 4%;
+    font-size: 2em;
+
+    @extend %font-shared;
+  }
+
+  .numbers,
+  .decimal {
+    background-color: #fff;
+
+    &:active {
+      background-color: rgb(85, 85, 85);
+    }
+  }
+
+  .operator,
+  .equals {
+    background-color: rgb(255, 143, 31);
+  }
+
+  .operator:active {
+    @include transform;
+  }
+
+  .allclear,
+  .backspace {
+    background-color: rgb(30, 144, 255);
+
+    &:active {
+      @include transform;
+    }
+  }
+
+  #num-0 {
+    grid-column: 1/3;
+  }
+}
