@@ -1,3 +1,92 @@
-* {
-  box-sizing: border-box;
+.buttons button,
+#container .calculator .screen #expression,
+#container .calculator .screen #answer {
+  font-weight: 500;
+  font-family: monospace;
 }
+
+#container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: ghostwhite;
+}
+
+#container .calculator {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  width: 500px;
+  height: 600px;
+  background-color: black;
+  border: 10px solid #2f2f2f;
+}
+
+#container .calculator .screen {
+  margin: 5px;
+  height: 150px;
+  background-color: #b2b9b7;
+}
+
+#container .calculator .screen #expression,
+#container .calculator .screen #answer {
+  height: 50%;
+  padding: 5px;
+}
+
+#container .calculator .screen #expression {
+  font-size: 2em;
+}
+
+#container .calculator .screen #answer {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 3em;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.buttons button {
+  margin: 1px;
+  border-radius: 4%;
+  font-size: 2em;
+}
+
+.buttons .numbers,
+.buttons .decimal {
+  background-color: #fff;
+}
+
+.buttons .numbers:active,
+.buttons .decimal:active {
+  background-color: #555;
+}
+
+.buttons .operator,
+.buttons .equals {
+  background-color: #ff8f1f;
+}
+
+.buttons .operator:active {
+  transform: translateY(2px);
+}
+
+.buttons .allclear,
+.buttons .backspace {
+  background-color: dodgerblue;
+}
+
+.buttons .allclear:active,
+.buttons .backspace:active {
+  transform: translateY(2px);
+}
+
+.buttons #num-0 {
+  grid-column: 1/3;
+}
+
+/*# sourceMappingURL=style.css.map */
