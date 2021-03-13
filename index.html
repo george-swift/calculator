@@ -10,7 +10,33 @@
 </head>
 <body>
     <div id="container">
-        
+        <div class="calculator" data-previous-key="digit">
+            <div class="screen">
+                <div id="expression">0</div>
+                <div id="answer"></div>
+            </div>
+            <div class="buttons">
+                <button class="allclear" data-type="reset" id="allclear">AC</button>
+                <button class="backspace" data-type="delete" id="delete">DEL</button>
+                <button class="operator" data-type="percentage" id="percent" value="%">&#37</button>
+                <button class="operator" data-type="operator" id="division" value="/">&#47</button>
+                <button class="numbers" data-type="digit" id="num-7" value="7">7</button>
+                <button class="numbers" data-type="digit" id="num-8" value="8">8</button>
+                <button class="numbers" data-type="digit" id="num-9" value="9">9</button>
+                <button class="operator" data-type="operator" id="multiply" value="x">&#215</button>
+                <button class="numbers" data-type="digit" id="num-4" value="4">4</button>
+                <button class="numbers" data-type="digit" id="num-5" value="5">5</button>
+                <button class="numbers" data-type="digit" id="num-6" value="6">6</button>
+                <button class="operator" data-type="operator" id="minus" value="-">&#45</button>
+                <button class="numbers" data-type="digit" id="num-1" value="1">1</button>
+                <button class="numbers" data-type="digit" id="num-2" value="2">2</button>
+                <button class="numbers" data-type="digit" id="num-3" value="3">3</button>
+                <button class="operator" data-type="operator" id="plus" value="+">&#43</button>
+                <button class="numbers" data-type="digit" id="num-0" value="0">0</button>
+                <button class="decimal" data-type="decimal" id="decimal" value=".">&#46</button>
+                <button class="equals" data-type="equal" id="equals" value="=">&#61</button>
+            </div>
+        </div>
         <script src="script.js"></script> 
     </div>
 </body>
