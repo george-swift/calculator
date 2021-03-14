@@ -11,22 +11,21 @@ const solution = document.querySelector('#answer');
 let equation = 0;
 let equalPressed = false;
 let checkDecimal = '';
-let operators = ['/', 'x', '+', '-'];
+const operators = ['/', 'x', '+', '-'];
 
 // The function uses a number of conditions to evaluate the result of pressing each button
 function handleEvent(e) {
   if (!e.target.closest('button')) return;
 
-  let key = e.target;
-  let keyValue = key.textContent;
+  const key = e.target;
+  const keyValue = key.textContent;
   let inputDisplay = input.textContent;
-  const {type} = key.dataset; // destructured assignment to type of current button
-  const {previousKey} = memory.dataset; // destructured assignment for type of previous button
+  const { type } = key.dataset; // destructured assignment to type of current button
+  const { previousKey } = memory.dataset; // destructured assignment for type of previous button
 
   if (type === 'digit' && !inputDisplay.endsWith('%') && !equalPressed) {
     // the calculator displays zero before any operation or after reset
     if (inputDisplay === '0') {
-
       input.textContent = (previousKey === 'operator') ? inputDisplay + keyValue : keyValue; // concatenate button values for display
 
       equation = (previousKey === 'operator') ? equation + key.value : key.value; // collect button values for evaluation
@@ -96,6 +95,47 @@ function handleEvent(e) {
       checkDecimal = '';
     }
   }
+}
+
+// eslint-disable-next-line consistent-return
+function solve(firstNum, operator, secondNum) {
+  // operands will return true for isNan if it is a percentage
+
+  // eslint-disable-next-line no-restricted-globals
+  firstNum = isNaN(firstNum) ? firstNum.slice(0, -1) / 100 : Number(firstNum);
+  // eslint-disable-next-line no-restricted-globals
+  secondNum = isNaN(secondNum) ? secondNum.slice(0, -1) / 100 : Number(secondNum);
+
+  if (operator === 'plus' || operator === '+') return firstNum + secondNum;
+  if (operator === 'minus' || operator === '-') return firstNum - secondNum;
+  if (operator === 'multiply' || operator === 'x') return firstNum * secondNum;
+  if (operator === 'division' || operator === '/') return firstNum / secondNum;
+}
+
+function handleEquation(equation) {
+  let firstNum;
+  let operator;
+  let secondNum;
+  let operatorIndex;
+  let result;
+
+  equation = equation.split(' ');
+
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < operators.length; i++) {
+    // loop through the operators array line 14
+    // the operands in the array are indexed to follow BODMAS rule
+    while (equation.includes(operators[i])) {
+      operatorIndex = equation.findIndex(val => val === operators[i]); // find index of operator(s)
+      firstNum = equation[operatorIndex - 1]; // the operand would be before the operator
+      operator = equation[operatorIndex];
+      secondNum = equation[operatorIndex + 1]; // the next operand would be after the operator
+      result = solve(firstNum, operator, secondNum);
+      // by splicing, the evaluation will continue until there are no more operators
+      equation.splice(operatorIndex - 1, 3, result);
+    }
+  }
+  return result;
 }
 
 calcButtons.addEventListener('click', handleEvent);
