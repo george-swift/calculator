@@ -97,6 +97,7 @@ function handleEvent(e) {
   }
 }
 
+// Function helper defines the type of operation to be carried out
 // eslint-disable-next-line consistent-return
 function solve(firstNum, operator, secondNum) {
   // operands will return true for isNan if it is a percentage
@@ -112,6 +113,7 @@ function solve(firstNum, operator, secondNum) {
   if (operator === 'division' || operator === '/') return firstNum / secondNum;
 }
 
+// Funtion helper splits the equation by each operand/operator pair and calls SOLVE above
 function handleEquation(equation) {
   let firstNum;
   let operator;
