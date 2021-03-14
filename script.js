@@ -52,6 +52,33 @@ function handleEvent(e) {
       checkDecimal += keyValue;
     }
   }
+
+  // while expression is yet to be evaluated
+
+  if (!inputDisplay.includes('Infinity') && !equalPressed) {
+    // check that the percent sign only concats with digits
+    if (type === 'percentage' && previousKey !== 'percentage' && !inputDisplay.endsWith('%')) {
+      input.textContent = (previousKey === 'digit' || inputDisplay === '0') ? inputDisplay + keyValue : inputDisplay;
+      equation = (previousKey === 'digit' || inputDisplay === '0') ? equation + key.value : equation;
+      checkDecimal += keyValue;
+    }
+
+    // checks that a decimal point only concats with digits that:
+    // do not already have a decimal point or end with a percentage sign
+    if (type === 'decimal' && (previousKey === 'digit' || inputDisplay === '0')
+    && !checkDecimal.includes('.') && !inputDisplay.endsWith('%')) { // 
+      input.textContent = inputDisplay + keyValue;
+      equation += key.value;
+      checkDecimal += keyValue;
+    }
+
+    // checks that an operator only concats with digits
+    if (type === 'operator' && previousKey !== 'operator') {
+      checkDecimal = ''; // resets after an operator to begin check on next set of digits
+      input.textContent = `${inputDisplay} ${keyValue} `; // interpolation adds space between operands and operator
+      equation = `${equation} ${key.value} `;
+    }
+  }
 }
 
 calcButtons.addEventListener('click', handleEvent);
