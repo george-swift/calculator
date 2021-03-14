@@ -66,7 +66,7 @@ function handleEvent(e) {
     // checks that a decimal point only concats with digits that:
     // do not already have a decimal point or end with a percentage sign
     if (type === 'decimal' && (previousKey === 'digit' || inputDisplay === '0')
-    && !checkDecimal.includes('.') && !inputDisplay.endsWith('%')) { // 
+    && !checkDecimal.includes('.') && !inputDisplay.endsWith('%')) {
       input.textContent = inputDisplay + keyValue;
       equation += key.value;
       checkDecimal += keyValue;
@@ -77,6 +77,23 @@ function handleEvent(e) {
       checkDecimal = ''; // resets after an operator to begin check on next set of digits
       input.textContent = `${inputDisplay} ${keyValue} `; // interpolation adds space between operands and operator
       equation = `${equation} ${key.value} `;
+    }
+  }
+
+  if ((type === 'reset' || type === 'delete') && inputDisplay !== '0') {
+    if (type === 'delete' && !equalPressed) {
+      // by slicing the last value is removed from display when DEL is pressed
+      input.textContent = inputDisplay.slice(0, -1);
+      equation = equation.slice(0, -1);
+      checkDecimal = checkDecimal.slice(0, -1);
+    } else {
+      // reset all values if AC is pressed
+      inputDisplay = '0';
+      input.textContent = inputDisplay;
+      solution.innerHTML = '&emsp;'; // resets solution to an empty space for new operation
+      equalPressed = false;
+      equation = '';
+      checkDecimal = '';
     }
   }
 }
