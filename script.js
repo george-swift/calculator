@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 const memory = document.querySelector('.calculator');
 const calcButtons = document.querySelector('.buttons');
 const input = document.querySelector('#expression');
@@ -39,7 +40,6 @@ function handleEvent(e) {
 
       input.textContent = inputDisplay.replace(numbers, checkDecimal);
     } else {
-      // eslint-disable-next-line no-nested-ternary
       input.textContent = input.textContent.includes('I') // Checks if Infinity is returned from an evaluation in display
         ? 'Infinity'
         : input.textContent.includes('N') // Checks if an evaluation returns NaN in display
@@ -95,6 +95,25 @@ function handleEvent(e) {
       checkDecimal = '';
     }
   }
+
+  if (type === 'equal') {
+    const regex = /\d+%$/; // regular expression checks if a number has a percentage sign
+    equalPressed = true; // changes state for evaluation
+    // eslint-disable-next-line no-use-before-define
+    const finalResult = handleEquation(equation); // calls helper to solve equation
+    if (finalResult || finalResult === 0) {
+      solution.textContent = (!Number.isInteger(finalResult))
+        ? finalResult.toFixed(2) // Limits decimal numbers to two decimal places
+        : (finalResult.toString().length > 15) // Limits the length of solution if not decimal to 15
+          ? finalResult.toExponential(2) // Converts to exponential otherwise
+          : finalResult;
+    } else {
+      solution.textContent = (regex.test(inputDisplay)) ? inputDisplay.slice(0, -1) / 100 : 'Math Error';
+    }
+  }
+
+  // Holds the type of the previous button for conditional statements to work
+  memory.dataset.previousKey = type;
 }
 
 // Function helper defines the type of operation to be carried out
