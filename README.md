@@ -15,7 +15,7 @@
 - HTML5
 ## Getting Started 
 
-- Visit [the github page](https://george-swift.github.io/calculator/`) to use the calculator
+- Visit [the github page](https://george-swift.github.io/calculator/) to use the calculator
 ## Show your support
 
 Leave a ⭐️ if you like this project
