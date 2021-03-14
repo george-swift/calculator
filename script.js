@@ -160,3 +160,32 @@ function handleEquation(equation) {
 }
 
 calcButtons.addEventListener('click', handleEvent);
+
+// Helper adds functionality to keyboard operators using html data-* attributes
+function keyboard(e) {
+  const signs = {
+    '/': 'division',
+    '*': 'multiply',
+    '+': 'plus',
+    '-': 'minus',
+  };
+
+  // eslint-disable-next-line no-restricted-globals
+  if (!isNaN(e.key) && e.key !== ' ') {
+    document.getElementById(`num-${e.key}`).click(); // allows for numeric keys
+  }
+  if (operators.includes(e.key) || e.key === '*') {
+    document.getElementById(signs[e.key]).click(); // allows for x or * to serve as multiplication
+  }
+  if (e.key === '.') {
+    document.getElementById('decimal').click();
+  }
+  if (e.key === 'Backspace' || e.key === 'Delete') {
+    document.getElementById('delete').click();
+  }
+  if (e.key === 'Enter' || e.key === '=') {
+    document.getElementById('equals').click();
+  }
+}
+
+document.addEventListener('keydown', keyboard);
